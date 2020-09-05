@@ -21,17 +21,17 @@ For Maven and other build tools, you can visit [search.maven.org](http://search.
 
 ### org.gfccollective.vavr.VavrConverters / VavrConversions:
 These contain implicit and explicit functions to convert between
-* ```io.vavr.control``` and ```scala.Option```
+* ```io.vavr.control.Option``` and ```scala.Option```
 and the respective scala functions.
 
 ```
     val foo: Option[String] = ???
 
-    // Explicit conversion Option -> Optional
+    // Explicit conversion Scala Option -> Vavr Option
     import org.gfccollective.vavr.VavrConverters._
-    val bar: Optional[String] = foo.asJava
+    val bar: io.vavr.control.Option[String] = foo.asJava
 
-    // Implicit conversion Optional -> Option
+    // Implicit conversion Vavr Option -> Scala Option
     import org.gfccollective.vavr.VavrConversions._
     val baz: Option[String] = bar
 ```
