@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-core" % "3.5.10" % Test,
 )
 
-ScoverageKeys.coverageMinimum := 65.0
+ScoverageKeys.coverageMinimum := 99.0
 
 ScoverageKeys.coverageFailOnMinimum := true
 
