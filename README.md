@@ -1,0 +1,42 @@
+# gfc-vavr [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.gfccollective/gfc-vavr_2.12/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/org.gfccollective/gfc-vavr_2.12) [![Build Status](https://github.com/gfc-collective/gfc-vavr/workflows/Scala%20CI/badge.svg)](https://github.com/gfc-collective/gfc-vavr/actions) [![Coverage Status](https://coveralls.io/repos/gfc-collective/gfc-vavr/badge.svg?branch=master&service=github)](https://coveralls.io/github/gfc-collective/gfc-vavr?branch=master)
+
+
+A library that contains utility classes and scala adapters and adaptations for VAVR.
+
+
+## Getting gfc-vavr
+
+This library is cross-built against Scala 2.12.x and 2.13.x.
+
+If you're using SBT, add the following line to your build file:
+
+```scala
+libraryDependencies += "org.gfccollective" %% "gfc-vavr" % "0.0.1"
+```
+
+For Maven and other build tools, you can visit [search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Corg.gfccollective).
+(This search will also list other available libraries from the GFC Collective.)
+
+## Contents and Example Usage
+
+### org.gfccollective.vavr.VavrConverters / VavrConversions:
+These contain implicit and explicit functions to convert between
+* ```io.vavr.control``` and ```scala.Option```
+and the respective scala functions.
+
+```
+    val foo: Option[String] = ???
+
+    // Explicit conversion Option -> Optional
+    import org.gfccollective.vavr.VavrConverters._
+    val bar: Optional[String] = foo.asJava
+
+    // Implicit conversion Optional -> Option
+    import org.gfccollective.vavr.VavrConversions._
+    val baz: Option[String] = bar
+```
+
+
+## License
+
+Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
