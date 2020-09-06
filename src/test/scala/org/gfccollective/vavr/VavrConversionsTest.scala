@@ -2,7 +2,9 @@ package org.gfccollective.vavr
 
 import io.vavr.control.{Option => VavrOption}
 import io.vavr.control.{Either => VavrEither}
+import io.vavr.control.{Try => VavrTry}
 
+import scala.util.{Try, Success, Failure}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
@@ -94,5 +96,53 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
 
     val right: VavrEither[String, String] = Right("right123")
     right should be(VavrEither.right("right123"))
+  }
+
+  // Try
+
+  test("Converters Vavr Try asScala") {
+    import VavrConverters._
+
+    val success: Try[String] = VavrTry.success[String]("happy path").asScala
+    success should be(Success("happy path"))
+
+    val exception = new IllegalStateException("foobar")
+    val failure: Try[String] = VavrTry.failure[String](exception).asScala
+    failure should be(Failure(exception))
+
+  }
+
+  test("Converters Scala Try asJava") {
+    import VavrConverters._
+
+    val success: VavrTry[String] = Success("success123").asJava
+    success.get should be("success123")
+
+    val exception = new IllegalStateException("foobar")
+    val failure: VavrTry[String] = Failure(exception).asJava
+    failure.getCause should be(exception)
+
+  }
+
+  test("Conversions Vavr Try asScala") {
+    import VavrConversions._
+
+    val sucdess: Try[String] = VavrTry.success[String]("success123")
+    sucdess should be(Success("success123"))
+
+    val exception = new IllegalStateException("foobar")
+    val failure: Try[String] = VavrTry.failure[String](exception)
+    failure should be(Failure(exception))
+  }
+
+  test("Conversions Scala Try asJava") {
+    import VavrConversions._
+
+    val success: VavrTry[String] = Success("success123")
+    success should be(VavrTry.success("success123"))
+
+    val exception = new IllegalStateException("foobar")
+    val failure: VavrTry[String] = Failure(exception)
+    failure should be(VavrTry.failure(exception))
   }
 }

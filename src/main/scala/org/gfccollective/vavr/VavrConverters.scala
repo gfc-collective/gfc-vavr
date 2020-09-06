@@ -2,6 +2,9 @@ package org.gfccollective.vavr
 
 import io.vavr.control.{Option => VavrOption}
 import io.vavr.control.{Either => VavrEither}
+import io.vavr.control.{Try => VavrTry}
+
+import scala.util.{Try, Success, Failure}
 
 /**
  * In spirit of scala.collection.JavaConverters.
@@ -33,6 +36,20 @@ object VavrConverters {
     @inline def asJava: VavrEither[L, R] = either match {
       case Left(leftVal) => VavrEither.left(leftVal)
       case Right(rightVal) => VavrEither.right(rightVal)
+    }
+  }
+
+  implicit class TryConverter[T](val vTry: VavrTry[T]) extends AnyVal {
+    @inline def asScala: Try[T] = vTry match {
+      case success: VavrTry.Success[T] => Success(success.get)
+      case failure: VavrTry.Failure[T] => Failure(failure.getCause)
+    }
+  }
+
+  implicit class VavrTryConverter[T](val sTry: Try[T]) extends AnyVal {
+    @inline def asJava: VavrTry[T] = sTry match {
+      case Success(x) => VavrTry.success(x)
+      case Failure(throwable) => VavrTry.failure(throwable)
     }
   }
 
