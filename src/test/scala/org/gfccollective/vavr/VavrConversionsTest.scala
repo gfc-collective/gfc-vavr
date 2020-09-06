@@ -1,6 +1,7 @@
 package org.gfccollective.vavr
 
 import io.vavr.control.{Option => VavrOption}
+import io.vavr.control.{Either => VavrEither}
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -53,4 +54,45 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
     optFoo should be(VavrOption.of("foo"))
   }
 
+  test("Converters Vavr Either asScala") {
+    import VavrConverters._
+
+    val left: Either[String, String] = VavrEither.left("left123").asScala
+    left should be(Left("left123"))
+
+    val right: Either[String, String] = VavrEither.right("right123").asScala
+    right should be(Right("right123"))
+
+  }
+
+  test("Converters Scala Either asJava") {
+    import VavrConverters._
+
+    val left: VavrEither[String, String] = Left("left123").asJava
+    left should be(VavrEither.left("left123"))
+
+    val right: VavrEither[String, String] = Right("right123").asJava
+    right should be(VavrEither.right("right123"))
+
+  }
+
+  test("Conversions Vavr Either asScala") {
+    import VavrConversions._
+
+    val left: Either[String, String] = VavrEither.left[String, String]("left123")
+    left should be(Left("left123"))
+
+    val right: Either[String, String] = VavrEither.right[String, String]("right123")
+    right should be(Right("right123"))
+  }
+
+  test("Conversions Scala Either asJava") {
+    import VavrConversions._
+
+    val left: VavrEither[String, String] = Left("left123")
+    left should be(VavrEither.left("left123"))
+
+    val right: VavrEither[String, String] = Right("right123")
+    right should be(VavrEither.right("right123"))
+  }
 }
