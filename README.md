@@ -22,6 +22,7 @@ For Maven and other build tools, you can visit [search.maven.org](http://search.
 ### org.gfccollective.vavr.VavrConverters / VavrConversions:
 These contain implicit and explicit functions to convert between
 * ```io.vavr.control.Option``` and ```scala.Option```
+* ```io.vavr.control.Either``` and ```scala.util.Either```
 and the respective scala functions.
 
 ```
