@@ -23,6 +23,7 @@ For Maven and other build tools, you can visit [search.maven.org](http://search.
 These contain implicit and explicit functions to convert between
 * ```io.vavr.control.Option``` and ```scala.Option```
 * ```io.vavr.control.Either``` and ```scala.util.Either```
+* ```io.vavr.control.Try``` and ```scala.util.Try```
 and the respective scala functions.
 
 ```
