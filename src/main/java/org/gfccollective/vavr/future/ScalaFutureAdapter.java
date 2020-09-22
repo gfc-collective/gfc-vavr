@@ -68,8 +68,8 @@ public class ScalaFutureAdapter<T>
     public Option<Try<T>> getValue() {
         scala.Option<scala.util.Try<T>> scalaValue = scalaFuture.value();
         VavrOptionConverter optionConverter = new VavrOptionConverter(scalaValue);
-        Option<Try<T>> vavrOption = optionConverter.asJava().map(
-                (value) -> new VavrTryConverter((scala.util.Try<T>) value).asJava()
+        Option<Try<T>> vavrOption = optionConverter.asVavrOption().map(
+                (value) -> new VavrTryConverter((scala.util.Try<T>) value).asVavrTry()
         );
         return vavrOption;
     }

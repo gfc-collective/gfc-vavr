@@ -21,7 +21,7 @@ object VavrConverters {
     }
   }
   implicit class VavrOptionConverter[T](val option: Option[T]) extends AnyVal {
-    @inline def asJava: VavrOption[T] = option.map(VavrOption.of[T](_)).getOrElse(VavrOption.none[T]())
+    @inline def asVavrOption: VavrOption[T] = option.map(VavrOption.of[T](_)).getOrElse(VavrOption.none[T]())
   }
 
   implicit class EitherConverter[L, R](val vEither: VavrEither[L, R]) extends AnyVal {
@@ -33,7 +33,7 @@ object VavrConverters {
   }
 
   implicit class VavrEitherConverter[L, R](val either: Either[L, R]) extends AnyVal {
-    @inline def asJava: VavrEither[L, R] = either match {
+    @inline def asVavrEither: VavrEither[L, R] = either match {
       case Left(leftVal) => VavrEither.left(leftVal)
       case Right(rightVal) => VavrEither.right(rightVal)
     }
@@ -47,7 +47,7 @@ object VavrConverters {
   }
 
   implicit class VavrTryConverter[T](val sTry: Try[T]) extends AnyVal {
-    @inline def asJava: VavrTry[T] = sTry match {
+    @inline def asVavrTry: VavrTry[T] = sTry match {
       case Success(x) => VavrTry.success(x)
       case Failure(throwable) => VavrTry.failure(throwable)
     }

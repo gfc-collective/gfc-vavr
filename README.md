@@ -31,7 +31,7 @@ and the respective scala functions.
 
     // Explicit conversion Scala Option -> Vavr Option
     import org.gfccollective.vavr.VavrConverters._
-    val bar: io.vavr.control.Option[String] = foo.asJava
+    val bar: io.vavr.control.Option[String] = foo.asVavrOption
 
     // Implicit conversion Vavr Option -> Scala Option
     import org.gfccollective.vavr.VavrConversions._

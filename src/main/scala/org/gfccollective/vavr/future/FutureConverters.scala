@@ -35,7 +35,7 @@ object FutureConverters {
     import scala.concurrent.ExecutionContext.Implicits.global
 
     scalaFuture.onComplete(result => {
-      action.accept(result.asJava)
+      action.accept(result.asVavrTry)
     })
   }
 

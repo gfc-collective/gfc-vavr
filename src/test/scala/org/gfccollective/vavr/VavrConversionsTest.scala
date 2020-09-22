@@ -28,12 +28,12 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
   test("Converters Scala Option asJava") {
     import VavrConverters._
 
-    val optAbsent: VavrOption[String] = Option.empty[String].asJava
+    val optAbsent: VavrOption[String] = Option.empty[String].asVavrOption
     optAbsent should be(VavrOption.none())
 
-    val optFoo: VavrOption[String] = Some("foo").asJava
+    val optFoo: VavrOption[String] = Some("foo").asVavrOption
     optFoo should be(VavrOption.of("foo"))
-    None.asJava should be(VavrOption.none())
+    None.asVavrOption should be(VavrOption.none())
 
   }
 
@@ -70,10 +70,10 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
   test("Converters Scala Either asJava") {
     import VavrConverters._
 
-    val left: VavrEither[String, String] = Left("left123").asJava
+    val left: VavrEither[String, String] = Left("left123").asVavrEither
     left should be(VavrEither.left("left123"))
 
-    val right: VavrEither[String, String] = Right("right123").asJava
+    val right: VavrEither[String, String] = Right("right123").asVavrEither
     right should be(VavrEither.right("right123"))
 
   }
@@ -115,11 +115,11 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
   test("Converters Scala Try asJava") {
     import VavrConverters._
 
-    val success: VavrTry[String] = Success("success123").asJava
+    val success: VavrTry[String] = Success("success123").asVavrTry
     success.get should be("success123")
 
     val exception = new IllegalStateException("foobar")
-    val failure: VavrTry[String] = Failure(exception).asJava
+    val failure: VavrTry[String] = Failure(exception).asVavrTry
     failure.getCause should be(exception)
 
   }
