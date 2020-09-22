@@ -23,7 +23,7 @@ jobs:
     - name: print Java version
       run: java -version
     - name: Run tests
-      run: sbt clean +coverage +test +coverageReport
+      run: sbt clean +javafmtCheckAll +coverage +test +coverageReport
     - name: Aggregate coverage
       run: sbt +coverageAggregate
     - name: Coveralls publish
