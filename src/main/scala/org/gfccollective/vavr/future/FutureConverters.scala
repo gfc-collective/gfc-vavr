@@ -28,7 +28,7 @@ object FutureConverters {
   }
 
   implicit class VavrFutureConverter[T](val sFuture: Future[T]) extends AnyVal {
-    @inline def asJava: VavrFuture[T] = new ScalaFutureAdapter(sFuture)
+    @inline def asVavrFuture: VavrFuture[T] = new ScalaFutureAdapter(sFuture)
   }
 
   def registerOnComplete[T, U >: VavrTry[T]](scalaFuture: Future[T], action: Consumer[U]): Unit = {

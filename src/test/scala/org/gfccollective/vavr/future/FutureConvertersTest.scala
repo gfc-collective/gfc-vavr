@@ -49,10 +49,10 @@ class FutureConvertersTest
     }
   }
 
-  test("Scala Future asJava") {
+  test("Scala Future asVavrFuture") {
     import FutureConverters._
 
-    val vFuture: VavrFuture[String] = makeScalaFuture.asJava
+    val vFuture: VavrFuture[String] = makeScalaFuture.asVavrFuture
 
     val counter = new AtomicInteger(0)
 
@@ -78,7 +78,7 @@ class FutureConvertersTest
   test("roundtrip") {
     import FutureConverters._
 
-    val vFuture: VavrFuture[String] = makeScalaFuture.asJava
+    val vFuture: VavrFuture[String] = makeScalaFuture.asVavrFuture
 
     eventually {
       vFuture.isCompleted should be(true)
