@@ -109,6 +109,19 @@ class FutureConvertersTest
     result.futureValue should be("message1,message2")
   }
 
+  test("VAVR For statement") {
+    import FutureConverters._
+    import io.vavr.API.For
+
+    val vFuture1: VavrFuture[String] = makeScalaFuture("message1").asVavrFuture
+    val vFuture2: VavrFuture[String] = makeScalaFuture("message2").asVavrFuture
+
+    val result = For(vFuture1, vFuture2)
+      .`yield`((a, b) => a + "," + b)
+
+    result.get should be("message1,message2")
+  }
+
   private def makeScalaFuture(message: String = "bonjour"): Future[String] = {
     Future {
       Thread.sleep(200L)
