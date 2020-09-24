@@ -90,6 +90,15 @@ class FutureConvertersTest
       sFuture.isCompleted should be(true)
       sFuture.futureValue should be("bonjour")
       Await.result(sFuture, Duration(5, MILLISECONDS)) should be("bonjour")
+
+      val result = for {
+        x <- sFuture
+        y <- makeScalaFuture("goodbye").asVavrFuture.asScala
+      } yield {
+        x + "," + y
+      }
+
+      result.futureValue should be("bonjour,goodbye")
     }
   }
 
