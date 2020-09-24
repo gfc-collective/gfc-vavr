@@ -32,7 +32,7 @@ class FutureConvertersTest
   test("Vavr Future asScala") {
     import FutureConverters._
 
-    val sFuture: Future[String] = makeVavrFuture.asScala
+    val sFuture: Future[String] = makeVavrFuture().asScala
 
     val counter = new AtomicInteger(0)
 
@@ -52,7 +52,7 @@ class FutureConvertersTest
   test("Scala Future asVavrFuture") {
     import FutureConverters._
 
-    val vFuture: VavrFuture[String] = makeScalaFuture.asVavrFuture
+    val vFuture: VavrFuture[String] = makeScalaFuture().asVavrFuture
 
     val counter = new AtomicInteger(0)
 
@@ -78,7 +78,7 @@ class FutureConvertersTest
   test("roundtrip") {
     import FutureConverters._
 
-    val vFuture: VavrFuture[String] = makeScalaFuture.asVavrFuture
+    val vFuture: VavrFuture[String] = makeScalaFuture().asVavrFuture
 
     eventually {
       vFuture.isCompleted should be(true)
@@ -93,21 +93,37 @@ class FutureConvertersTest
     }
   }
 
-  private def makeScalaFuture: Future[String] = {
+  test("Scala for comprehension") {
+    import FutureConverters._
+
+    val sFuture1: Future[String] = makeVavrFuture("message1").asScala
+    val sFuture2: Future[String] = makeVavrFuture("message2").asScala
+
+    val result: Future[String] = for {
+      message1 <- sFuture1
+      message2 <- sFuture2
+    } yield {
+      message1 + "," + message2
+    }
+
+    result.futureValue should be("message1,message2")
+  }
+
+  private def makeScalaFuture(message: String = "bonjour"): Future[String] = {
     Future {
       Thread.sleep(200L)
-      "bonjour"
+      message
     }
   }
 
-  private def makeVavrFuture: VavrFuture[String] = {
+  private def makeVavrFuture(message: String = "bonjour"): VavrFuture[String] = {
     // the Scala compiler was having trouble invoking
     // VavrFuture.of because 'of' is an overloaded method.
     // My workaround is to explicitly create a CheckedFunction0 object.
     val computation = new CheckedFunction0[String]() {
       override def apply(): String = {
         Thread.sleep(200L)
-        "bonjour"
+        message
       }
     }
     VavrFuture.of(computation)
