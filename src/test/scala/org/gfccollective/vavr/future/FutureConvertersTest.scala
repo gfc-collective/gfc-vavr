@@ -25,8 +25,10 @@ class FutureConvertersTest
   with Eventually
   with ScalaFutures {
 
+  private val sleepTime = Duration(200, MILLISECONDS)
+
   implicit override val patienceConfig = PatienceConfig(
-                                             timeout = scaled(Span(1, Seconds)),
+                                             timeout = scaled(Span(sleepTime.toMillis * 4, Millis)),
                                              interval = scaled(Span(5, Millis)))
 
   test("Vavr Future asScala") {
@@ -142,7 +144,7 @@ class FutureConvertersTest
 
   private def makeScalaFuture(message: String = "bonjour"): Future[String] = {
     Future {
-      Thread.sleep(200L)
+      Thread.sleep(sleepTime.toMillis)
       message
     }
   }
@@ -153,7 +155,7 @@ class FutureConvertersTest
     // My workaround is to explicitly create a CheckedFunction0 object.
     val computation = new CheckedFunction0[String]() {
       override def apply(): String = {
-        Thread.sleep(200L)
+        Thread.sleep(sleepTime.toMillis)
         message
       }
     }
