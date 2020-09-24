@@ -34,7 +34,12 @@ class FutureConvertersTest
   test("Vavr Future asScala") {
     import FutureConverters._
 
-    val sFuture: Future[String] = makeVavrFuture().asScala
+    val vFuture = makeVavrFuture()
+    vFuture.isAsync should be(true)
+    vFuture.isCancelled should be(false)
+    vFuture.isCompleted should be(false)
+
+    val sFuture: Future[String] = vFuture.asScala
 
     val counter = new AtomicInteger(0)
 
@@ -48,6 +53,8 @@ class FutureConvertersTest
       sFuture.futureValue should be("bonjour")
       sFuture.value should be(Some(Success("bonjour")))
       Await.result(sFuture, Duration(5, MILLISECONDS)) should be("bonjour")
+      vFuture.isCancelled should be(false)
+      vFuture.isCompleted should be(true)
     }
   }
 
@@ -55,6 +62,8 @@ class FutureConvertersTest
     import FutureConverters._
 
     val vFuture: VavrFuture[String] = makeScalaFuture().asVavrFuture
+    vFuture.isAsync should be(true)
+    vFuture.isCompleted should be(false)
 
     val counter = new AtomicInteger(0)
 
