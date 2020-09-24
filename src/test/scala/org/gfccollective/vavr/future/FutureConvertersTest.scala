@@ -28,7 +28,7 @@ class FutureConvertersTest
   private val defaultSleepTime = Duration(200, MILLISECONDS)
 
   implicit override val patienceConfig = PatienceConfig(
-                                             timeout = scaled(Span(defaultSleepTime.toMillis * 4, Millis)),
+                                             timeout = scaled(Span(defaultSleepTime.toMillis * 5, Millis)),
                                              interval = scaled(Span(5, Millis)))
 
   test("Vavr Future asScala") {
@@ -127,7 +127,7 @@ class FutureConvertersTest
 
     val startTime = System.currentTimeMillis
 
-    val futureSleepTime = Duration(500, MILLISECONDS)
+    val futureSleepTime = Duration(300, MILLISECONDS)
 
     val sFuture1: Future[String] = makeVavrFuture("message1", futureSleepTime).asScala
     val sFuture2: Future[String] = makeVavrFuture("message2", futureSleepTime).asScala
