@@ -59,7 +59,9 @@ object FutureConverters {
 
     override def transform[S](f: Try[T] => Try[S])(implicit executor: ExecutionContext): Future[S] = ??? // TODO
 
-    override def transformWith[S](f: Try[T] => Future[S])(implicit executor: ExecutionContext): Future[S] = ??? // TODO
+    override def transformWith[S](f: Try[T] => Future[S])(implicit executor: ExecutionContext): Future[S] = {
+      ??? // FIXME
+    }
 
     override def ready(atMost: Duration)(implicit permit: CanAwait): VavrFutureAdapter.this.type = {
       vavrFuture.await(atMost.toMillis, TimeUnit.MILLISECONDS)
