@@ -72,7 +72,7 @@ object FutureConverters {
       import org.gfccollective.vavr.VavrConverters._
       val jFunction = new JFunction[VavrTry[T], VavrTry[S]]() {
         override def apply(vavrTry: VavrTry[T]): VavrTry[S] = {
-          f(vavrTry.asScala).asVavrFuture.await().getValue.get
+          f(vavrTry.asScala).asVavrFuture.toTry
         }
       }
       vavrFuture.transformValue(jFunction).asScala
