@@ -21,10 +21,6 @@ ScoverageKeys.coverageMinimum := 93.1
 
 ScoverageKeys.coverageFailOnMinimum := true
 
-releaseCrossBuild := true
-
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
-
 publishMavenStyle := true
 
 publishTo := {
