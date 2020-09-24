@@ -26,7 +26,7 @@ class FutureConvertersTest
   with ScalaFutures {
 
   implicit override val patienceConfig = PatienceConfig(
-                                             timeout = scaled(Span(10, Seconds)),
+                                             timeout = scaled(Span(1, Seconds)),
                                              interval = scaled(Span(5, Millis)))
 
   test("Vavr Future asScala") {
