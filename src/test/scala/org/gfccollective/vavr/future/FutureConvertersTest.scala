@@ -25,10 +25,10 @@ class FutureConvertersTest
   with Eventually
   with ScalaFutures {
 
-  private val sleepTime = Duration(200, MILLISECONDS)
+  private val defaultSleepTime = Duration(200, MILLISECONDS)
 
   implicit override val patienceConfig = PatienceConfig(
-                                             timeout = scaled(Span(sleepTime.toMillis * 4, Millis)),
+                                             timeout = scaled(Span(defaultSleepTime.toMillis * 4, Millis)),
                                              interval = scaled(Span(5, Millis)))
 
   test("Vavr Future asScala") {
@@ -142,14 +142,14 @@ class FutureConvertersTest
     result.get should be("message1,message2")
   }
 
-  private def makeScalaFuture(message: String = "bonjour"): Future[String] = {
+  private def makeScalaFuture(message: String = "bonjour", sleepTime: Duration = defaultSleepTime): Future[String] = {
     Future {
       Thread.sleep(sleepTime.toMillis)
       message
     }
   }
 
-  private def makeVavrFuture(message: String = "bonjour"): VavrFuture[String] = {
+  private def makeVavrFuture(message: String = "bonjour", sleepTime: Duration = defaultSleepTime): VavrFuture[String] = {
     // the Scala compiler was having trouble invoking
     // VavrFuture.of because 'of' is an overloaded method.
     // My workaround is to explicitly create a CheckedFunction0 object.
