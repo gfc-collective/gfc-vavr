@@ -116,8 +116,12 @@ class FutureConvertersTest
   test("Scala for comprehension: 2 futures") {
     import FutureConverters._
 
-    val sFuture1: Future[String] = makeVavrFuture("message1").asScala
-    val sFuture2: Future[String] = makeVavrFuture("message2").asScala
+    val startTime = System.currentTimeMillis
+
+    val futureSleepTime = Duration(500, MILLISECONDS)
+
+    val sFuture1: Future[String] = makeVavrFuture("message1", futureSleepTime).asScala
+    val sFuture2: Future[String] = makeVavrFuture("message2", futureSleepTime).asScala
 
     val result: Future[String] = for {
       message1 <- sFuture1
@@ -127,6 +131,10 @@ class FutureConvertersTest
     }
 
     result.futureValue should be("message1,message2")
+
+    val endTime = System.currentTimeMillis
+
+    (endTime - startTime) shouldBe > (futureSleepTime.toMillis)
   }
 
   test("VAVR For statement") {
