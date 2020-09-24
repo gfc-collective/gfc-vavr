@@ -90,19 +90,28 @@ class FutureConvertersTest
       sFuture.isCompleted should be(true)
       sFuture.futureValue should be("bonjour")
       Await.result(sFuture, Duration(5, MILLISECONDS)) should be("bonjour")
-
-      val result = for {
-        x <- sFuture
-        y <- makeScalaFuture("goodbye").asVavrFuture.asScala
-      } yield {
-        x + "," + y
-      }
-
-      result.futureValue should be("bonjour,goodbye")
     }
   }
 
-  test("Scala for comprehension") {
+  test("Scala for comprehension: 3 futures") {
+    import FutureConverters._
+
+    val future1 = makeScalaFuture("1")
+    val future2 = makeVavrFuture("2").asScala
+    val future3 = makeScalaFuture("3").asVavrFuture.asScala
+
+    val result = for {
+      x <- future1
+      y <- future2
+      z <- future3
+    } yield {
+      x + "," + y + "," + z
+    }
+
+    result.futureValue should be("1,2,3")
+  }
+
+  test("Scala for comprehension: 2 futures") {
     import FutureConverters._
 
     val sFuture1: Future[String] = makeVavrFuture("message1").asScala
