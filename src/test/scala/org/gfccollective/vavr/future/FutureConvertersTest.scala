@@ -26,7 +26,7 @@ class FutureConvertersTest
   with ScalaFutures {
 
   implicit override val patienceConfig = PatienceConfig(
-                                             timeout = scaled(Span(1, Seconds)),
+                                             timeout = scaled(Span(10, Seconds)),
                                              interval = scaled(Span(5, Millis)))
 
   test("Vavr Future asScala") {
@@ -99,14 +99,14 @@ class FutureConvertersTest
     val sFuture1: Future[String] = makeVavrFuture("message1").asScala
     val sFuture2: Future[String] = makeVavrFuture("message2").asScala
 
-    val result = for {
+    val result: Future[String] = for {
       message1 <- sFuture1
       message2 <- sFuture2
     } yield {
       message1 + "," + message2
     }
 
-    result should be("message1,message2")
+    result.futureValue should be("message1,message2")
   }
 
   private def makeScalaFuture(message: String = "bonjour"): Future[String] = {

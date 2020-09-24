@@ -2,6 +2,7 @@ package org.gfccollective.vavr.future
 
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
+import java.util.function.{Function => JFunction}
 
 import io.vavr.concurrent.{Future => VavrFuture}
 import io.vavr.control.{Try => VavrTry}
@@ -57,10 +58,24 @@ object FutureConverters {
       vavrFuture.getValue.asScala.map(_.asScala)
     }
 
-    override def transform[S](f: Try[T] => Try[S])(implicit executor: ExecutionContext): Future[S] = ??? // TODO
+    override def transform[S](f: Try[T] => Try[S])(implicit executor: ExecutionContext): Future[S] = {
+      import org.gfccollective.vavr.VavrConverters._
+      val jFunction = new JFunction[VavrTry[T], VavrTry[S]]() {
+        override def apply(vavrTry: VavrTry[T]): VavrTry[S] = {
+          f(vavrTry.asScala).asVavrTry
+        }
+      }
+      vavrFuture.transformValue(jFunction).asScala
+    }
 
     override def transformWith[S](f: Try[T] => Future[S])(implicit executor: ExecutionContext): Future[S] = {
-      ??? // FIXME
+      import org.gfccollective.vavr.VavrConverters._
+      val jFunction = new JFunction[VavrTry[T], VavrTry[S]]() {
+        override def apply(vavrTry: VavrTry[T]): VavrTry[S] = {
+          f(vavrTry.asScala).asVavrFuture.await().getValue.get
+        }
+      }
+      vavrFuture.transformValue(jFunction).asScala
     }
 
     override def ready(atMost: Duration)(implicit permit: CanAwait): VavrFutureAdapter.this.type = {

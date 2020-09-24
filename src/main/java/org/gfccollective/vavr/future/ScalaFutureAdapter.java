@@ -33,7 +33,7 @@ public class ScalaFutureAdapter<T> implements io.vavr.concurrent.Future<T> {
 
   @Override
   public io.vavr.concurrent.Future<T> await() {
-    return await(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+    return await(1000000L, TimeUnit.SECONDS);
   }
 
   @Override
