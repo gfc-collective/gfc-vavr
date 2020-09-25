@@ -150,13 +150,22 @@ class FutureConvertersTest
     import FutureConverters._
     import io.vavr.API.For
 
-    val vFuture1: VavrFuture[String] = makeScalaFuture("message1").asVavrFuture
-    val vFuture2: VavrFuture[String] = makeScalaFuture("message2").asVavrFuture
+    val startTime = System.currentTimeMillis
+
+    val futureSleepTime = Duration(300, MILLISECONDS)
+
+    val vFuture1: VavrFuture[String] = makeScalaFuture("message1", futureSleepTime).asVavrFuture
+    val vFuture2: VavrFuture[String] = makeScalaFuture("message2", futureSleepTime).asVavrFuture
 
     val result = For(vFuture1, vFuture2)
       .`yield`((a, b) => a + "," + b)
 
     result.get should be("message1,message2")
+
+    val endTime = System.currentTimeMillis
+
+    (endTime - startTime) shouldBe > (futureSleepTime.toMillis)
+
   }
 
   private def makeScalaFuture(message: String = "bonjour", sleepTime: Duration = defaultSleepTime): Future[String] = {
