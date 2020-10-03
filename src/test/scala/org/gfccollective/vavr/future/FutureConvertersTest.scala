@@ -104,7 +104,7 @@ class FutureConvertersTest
     }
   }
 
-  test("roundtrip with failed Future") {
+  test("roundtrip with failed Scala Future") {
     import FutureConverters._
 
     val vFuture: VavrFuture[String] = makeFailedScalaFuture().asVavrFuture
@@ -121,6 +121,26 @@ class FutureConvertersTest
       sFuture.isExpired should be(false)
       sFuture.isCanceled should be(false)
       sFuture.failed.futureValue.getMessage should be("This is a failed Scala Future")
+    }
+  }
+
+  test("roundtrip with failed VAVR Future") {
+    import FutureConverters._
+
+    val sFuture: Future[String] = makeFailedVavrFuture().asScala
+
+    eventually {
+      sFuture.isCompleted should be(true)
+      sFuture.isExpired should be(false)
+      sFuture.isCanceled should be(false)
+      sFuture.failed.futureValue.getMessage should be("This is a failed VAVR Future")
+
+      val vFuture: VavrFuture[String] = sFuture.asVavrFuture
+      vFuture.isCompleted should be(true)
+      vFuture.isSuccess should be(false)
+      vFuture.isFailure should be(true)
+      vFuture.isCancelled should be(false)
+      vFuture.failed().get.getMessage should be("This is a failed VAVR Future")
     }
   }
 
