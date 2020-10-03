@@ -162,6 +162,22 @@ class FutureConvertersTest
     result.futureValue should be("1,2,3")
   }
 
+  test("Scala for comprehension with 1 failed VAVR future") {
+    import FutureConverters._
+
+    val future1 = makeScalaFuture("1")
+    val future2 = makeFailedVavrFuture().asScala
+
+    val result = for {
+      x <- future1
+      y <- future2
+    } yield {
+      x + "," + y
+    }
+
+    result.failed.futureValue.getMessage should be("This is a failed VAVR Future")
+  }
+
   test("Scala for comprehension: 2 futures") {
     import FutureConverters._
 
