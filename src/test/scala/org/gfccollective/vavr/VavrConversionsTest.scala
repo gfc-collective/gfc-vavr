@@ -25,7 +25,7 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
     None should be(VavrOption.none().asScala)
   }
 
-  test("Converters Scala Option asJava") {
+  test("Converters Scala Option asVavrOption") {
     import VavrConverters._
 
     val optAbsent: VavrOption[String] = Option.empty[String].asVavrOption
@@ -46,7 +46,7 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
     optFoo should be(Some("foo"))
   }
 
-  test("Conversions Scala Option asJava") {
+  test("Conversions Scala Option to VAVR Option") {
     import VavrConversions._
 
     val optAbsent: VavrOption[String] = Option.empty[String]
@@ -67,7 +67,7 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
 
   }
 
-  test("Converters Scala Either asJava") {
+  test("Converters Scala Either asVavrEither") {
     import VavrConverters._
 
     val left: VavrEither[String, String] = Left("left123").asVavrEither
@@ -88,7 +88,7 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
     right should be(Right("right123"))
   }
 
-  test("Conversions Scala Either asJava") {
+  test("Conversions Scala Either to VAVR Either") {
     import VavrConversions._
 
     val left: VavrEither[String, String] = Left("left123")
@@ -112,7 +112,7 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
 
   }
 
-  test("Converters Scala Try asJava") {
+  test("Converters Scala Try asVavrTry") {
     import VavrConverters._
 
     val success: VavrTry[String] = Success("success123").asVavrTry
@@ -135,7 +135,7 @@ class VavrConversionsTest extends AnyFunSuite with Matchers {
     failure should be(Failure(exception))
   }
 
-  test("Conversions Scala Try asJava") {
+  test("Conversions Scala Try to VAVR Try") {
     import VavrConversions._
 
     val success: VavrTry[String] = Success("success123")
