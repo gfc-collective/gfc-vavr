@@ -1,7 +1,7 @@
 # gfc-vavr [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.gfccollective/gfc-vavr_2.12/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/org.gfccollective/gfc-vavr_2.12) [![Build Status](https://github.com/gfc-collective/gfc-vavr/workflows/Scala%20CI/badge.svg)](https://github.com/gfc-collective/gfc-vavr/actions) [![Coverage Status](https://coveralls.io/repos/gfc-collective/gfc-vavr/badge.svg?branch=master&service=github)](https://coveralls.io/github/gfc-collective/gfc-vavr?branch=master)
 
 
-A library that contains utility classes and scala adapters and adaptations for [VAVR](https://www.vavr.io/).
+A library that contains utility classes and Scala adapters and adaptations for [VAVR](https://www.vavr.io/).
 
 
 ## Getting gfc-vavr
@@ -24,7 +24,6 @@ These contain implicit and explicit functions to convert between
 * ```io.vavr.control.Option``` and ```scala.Option```
 * ```io.vavr.control.Either``` and ```scala.util.Either```
 * ```io.vavr.control.Try``` and ```scala.util.Try```
-and the respective scala functions.
 
 ```
     val foo: Option[String] = ???
