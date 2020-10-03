@@ -24,6 +24,7 @@ These contain implicit and explicit functions to convert between
 * ```io.vavr.control.Option``` and ```scala.Option```
 * ```io.vavr.control.Either``` and ```scala.util.Either```
 * ```io.vavr.control.Try``` and ```scala.util.Try```
+* ```io.vavr.concurrent.Future``` and ```scala.concurrent.Future```
 
 ```
     val foo: Option[String] = ???
