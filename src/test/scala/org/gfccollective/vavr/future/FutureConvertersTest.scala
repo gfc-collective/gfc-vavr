@@ -104,6 +104,26 @@ class FutureConvertersTest
     }
   }
 
+  test("roundtrip with failed Future") {
+    import FutureConverters._
+
+    val vFuture: VavrFuture[String] = makeFailedScalaFuture().asVavrFuture
+
+    eventually {
+      vFuture.isCompleted should be(true)
+      vFuture.isSuccess should be(false)
+      vFuture.isFailure should be(true)
+      vFuture.isCancelled should be(false)
+      vFuture.failed().get.getMessage should be("This is a failed Scala Future")
+
+      val sFuture = vFuture.asScala
+      sFuture.isCompleted should be(true)
+      sFuture.isExpired should be(false)
+      sFuture.isCanceled should be(false)
+      sFuture.failed.futureValue.getMessage should be("This is a failed Scala Future")
+    }
+  }
+
   test("Scala for comprehension: 3 futures") {
     import FutureConverters._
 
@@ -175,6 +195,13 @@ class FutureConvertersTest
     }
   }
 
+  private def makeFailedScalaFuture(sleepTime: Duration = defaultSleepTime): Future[String] = {
+    Future {
+      Thread.sleep(sleepTime.toMillis)
+      throw new IllegalStateException("This is a failed Scala Future")
+    }
+  }
+
   private def makeVavrFuture(message: String = "bonjour", sleepTime: Duration = defaultSleepTime): VavrFuture[String] = {
     // the Scala compiler was having trouble invoking
     // VavrFuture.of because 'of' is an overloaded method.
@@ -183,6 +210,19 @@ class FutureConvertersTest
       override def apply(): String = {
         Thread.sleep(sleepTime.toMillis)
         message
+      }
+    }
+    VavrFuture.of(computation)
+  }
+
+  private def makeFailedVavrFuture(sleepTime: Duration = defaultSleepTime): VavrFuture[String] = {
+    // the Scala compiler was having trouble invoking
+    // VavrFuture.of because 'of' is an overloaded method.
+    // My workaround is to explicitly create a CheckedFunction0 object.
+    val computation = new CheckedFunction0[String]() {
+      override def apply(): String = {
+        Thread.sleep(sleepTime.toMillis)
+        throw new IllegalStateException("This is a failed VAVR Future")
       }
     }
     VavrFuture.of(computation)
