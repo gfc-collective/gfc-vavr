@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '8', '11', '13', '14', '15' ]
+        java: [ '8', '11', '15' ]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
@@ -23,10 +23,4 @@ jobs:
     - name: print Java version
       run: java -version
     - name: Run tests
-      run: sbt clean +javafmtCheckAll +coverage +test +coverageReport
-    - name: Aggregate coverage
-      run: sbt +coverageAggregate
-    - name: Coveralls publish
-      run: sbt +coveralls
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      run: sbt clean +test
