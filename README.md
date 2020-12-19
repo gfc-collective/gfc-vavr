@@ -6,7 +6,7 @@ A library that contains utility classes and Scala adapters and adaptations for [
 
 ## Getting gfc-vavr
 
-This library is cross-built against Scala 2.12.x and 2.13.x.
+This library is cross-built against Scala 2.12.x, 2.13.x, and Scala 3.0.x
 
 If you're using SBT, add the following line to your build file:
 
