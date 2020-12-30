@@ -32,14 +32,6 @@ ScoverageKeys.coverageFailOnMinimum := true
 
 publishMavenStyle := true
 
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
-
 publishArtifact in Test := false
 
 pomIncludeRepository := { _ => false }
@@ -49,10 +41,6 @@ licenses := Seq("Apache-style" -> url("https://raw.githubusercontent.com/gfc-col
 homepage := Some(url("https://github.com/gfc-collective/gfc-vavr"))
 
 pomExtra := (
-  <scm>
-    <url>https://github.com/gfc-collective/gfc-vavr.git</url>
-    <connection>scm:git:git@github.com:gfc-collective/gfc-vavr.git</connection>
-  </scm>
   <developers>
     <developer>
       <id>sullis</id>
