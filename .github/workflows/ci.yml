@@ -23,4 +23,4 @@ jobs:
     - name: print Java version
       run: java -version
     - name: Run tests
-      run: sbt clean +test
+      run: sbt +clean +test
