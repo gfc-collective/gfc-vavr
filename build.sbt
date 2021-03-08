@@ -23,7 +23,7 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 libraryDependencies ++= Seq(
   "io.vavr" % "vavr" % "0.10.3",
-  "org.scalatest" %% "scalatest" % "3.2.5" % Test
+  "org.scalatest" %% "scalatest" % "3.2.6" % Test
 )
 
 ScoverageKeys.coverageMinimum := 100.0
