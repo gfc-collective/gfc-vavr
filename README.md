@@ -11,7 +11,7 @@ This library is cross-built against Scala 2.12.x, 2.13.x, and Scala 3.0.x
 If you're using SBT, add the following line to your build file:
 
 ```scala
-libraryDependencies += "org.gfccollective" %% "gfc-vavr" % "0.0.1"
+libraryDependencies += "org.gfccollective" %% "gfc-vavr" % "x.y.z"
 ```
 
 For Maven and other build tools, you can visit [search.maven.org](http://search.maven.org/#search%7Cga%7C1%7Corg.gfccollective).
