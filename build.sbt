@@ -6,7 +6,7 @@ organization := "org.gfccollective"
 
 scalaVersion := "2.13.5"
 
-crossScalaVersions := Seq(scalaVersion.value, "2.12.13", "3.0.0-RC3")
+crossScalaVersions := Seq(scalaVersion.value, "2.12.13", "3.0.0")
 
 scalacOptions += "-target:jvm-1.8"
 
@@ -23,7 +23,7 @@ javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 libraryDependencies ++= Seq(
   "io.vavr" % "vavr" % "0.10.3",
-  "org.scalatest" %% "scalatest" % "3.2.8" % Test
+  "org.scalatest" %% "scalatest" % "3.2.9" % Test
 )
 
 ScoverageKeys.coverageMinimum := 100.0
