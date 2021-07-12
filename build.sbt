@@ -26,7 +26,7 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.9" % Test
 )
 
-ScoverageKeys.coverageMinimum := 100.0
+ScoverageKeys.coverageMinimumStmtTotal := 100.0
 
 ScoverageKeys.coverageFailOnMinimum := true
 
