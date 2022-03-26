@@ -26,7 +26,7 @@ These contain implicit and explicit functions to convert between
 * ```io.vavr.control.Try``` and ```scala.util.Try```
 * ```io.vavr.concurrent.Future``` and ```scala.concurrent.Future```
 
-```
+```scala
     val foo: Option[String] = ???
 
     // Explicit conversion Scala Option -> Vavr Option
