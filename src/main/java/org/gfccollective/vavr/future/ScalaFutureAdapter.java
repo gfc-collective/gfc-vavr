@@ -1,15 +1,13 @@
 package org.gfccollective.vavr.future;
 
-import org.gfccollective.vavr.VavrConverters.VavrTryConverter;
-import org.gfccollective.vavr.VavrConverters.VavrOptionConverter;
-
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-
-import io.vavr.control.Option;
-import io.vavr.control.Try;
+import org.gfccollective.vavr.VavrConverters.VavrOptionConverter;
+import org.gfccollective.vavr.VavrConverters.VavrTryConverter;
 import scala.concurrent.Await;
 import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
