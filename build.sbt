@@ -4,7 +4,7 @@ name := "gfc-vavr"
 
 organization := "org.gfccollective"
 
-scalaVersion := "2.13.12"
+scalaVersion := "2.13.13"
 
 crossScalaVersions := Seq(scalaVersion.value, "2.12.18", "3.3.1")
 
