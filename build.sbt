@@ -4,7 +4,7 @@ name := "gfc-vavr"
 
 organization := "org.gfccollective"
 
-scalaVersion := "2.13.14"
+scalaVersion := "2.13.15"
 
 crossScalaVersions := Seq(scalaVersion.value, "2.12.20", "3.5.0")
 
@@ -22,7 +22,7 @@ scalacOptions ++= {
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 libraryDependencies ++= Seq(
-  "io.vavr" % "vavr" % "0.10.4",
+  "io.vavr" % "vavr" % "0.10.5",
   "org.scalatest" %% "scalatest" % "3.2.19" % Test
 )
 
