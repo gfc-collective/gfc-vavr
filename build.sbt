@@ -22,7 +22,7 @@ scalacOptions ++= {
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 libraryDependencies ++= Seq(
-  "io.vavr" % "vavr" % "1.0.1",
+  "io.vavr" % "vavr" % "1.1.0",
   "org.scalatest" %% "scalatest" % "3.2.19" % Test
 )
 
